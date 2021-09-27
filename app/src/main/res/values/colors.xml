@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pink">#CB93D5</color>
+
+    <color name="home">#75CBD5</color>
+    <color name="activity">#68BCA4</color>
+    <color name="favorites">#C55C70</color>
+    <color name="profile">#CA75D8</color>
+
+    <color name="homebg">#3a7bd5</color>
+    <color name="activitybg">#5A869C</color>
+    <color name="favouritebg">#3a6073</color>
+    <color name="profilebg"></color>
+    <color name="textInputLayout">#96ffffff</color>
+
+</resources>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="50dp"
+    android:paddingTop="25dp"
+    android:paddingBottom="15dp"
+    tools:context=".profilefragment"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_1">
+
+    <!-- TODO: Update blank fragment layout -->
+            <ScrollView
+                android:padding="20dp"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_1"
+                app:layout_constraintBottom_toBottomOf="@+id/changepassword">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_alignParentBottom="true">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_pic"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/settings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/setting"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintLeft_toRightOf="@id/profile_pic"
+                            app:layout_constraintStart_toStartOf="@+id/profile_pic"
+                            app:layout_constraintTop_toTopOf="@+id/profile_pic"
+                            app:layout_constraintBottom_toBottomOf="@id/profile_pic"
+                            app:layout_constraintEnd_toEndOf="@+id/profile_pic"
+                            app:layout_constraintVertical_bias="1.0" />
+
+                        <TextView
+                            android:id="@+id/username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:ellipsize="end"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:paddingHorizontal="50dp"
+                            android:paddingVertical="15dp"
+                            android:scrollHorizontally="true"
+                            android:hint="Username"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/profile_pic"
+                            />
+                        <TextView
+                            android:id="@+id/collageId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingHorizontal="50dp"
+                            android:paddingVertical="15dp"
+                            android:hint="Collage ID"
+                            android:textColor="#000000"
+                            android:background="@android:color/transparent"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/username"
+                            android:inputType="none"/>
+                        <TextView
+                            android:id="@+id/emailid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingHorizontal="50dp"
+                            android:paddingVertical="15dp"
+                            android:hint="Email"
+                            android:textColor="#000000"
+                            android:background="@android:color/transparent"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/collageId"
+                            android:inputType="textEmailAddress"/>
+                        <TextView
+                            android:id="@+id/organisation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="70dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="50dp"
+                            android:paddingVertical="15dp"
+                            android:hint="Organisation"
+                            android:textColor="#000000"
+                            android:background="@android:color/transparent"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/emailid"
+                            android:inputType="none"/>
+                        <Button
+                            android:id="@+id/SignOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:background="@drawable/buttonshapewhitebg"
+                            android:fontFamily="@font/calibri"
+                            android:gravity="center"
+                            android:text="SignOut"
+                            android:textAllCaps="false"
+                            android:textColor="#96ffffff"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/organisation"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </ScrollView>
+
+</FrameLayout>

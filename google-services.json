@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789704974963",
+    "project_id": "collagemanagement-bea32",
+    "storage_bucket": "collagemanagement-bea32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789704974963:android:eba54dee46901c71388006",
+        "android_client_info": {
+          "package_name": "com.example.collagemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789704974963-mds840vr4aed6d4rq3aso4cq3tholb1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo4JgthhqVgVplgxHpGLB6ExUrfDwOtkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789704974963-mds840vr4aed6d4rq3aso4cq3tholb1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

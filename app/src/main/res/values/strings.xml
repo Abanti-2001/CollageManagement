@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">College Management</string>
+
+    <string name="home">Home</string>
+    <string name="course">Course</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="msg_token_fmt">fmt</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

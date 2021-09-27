@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/activity.xml" value="0.275" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/buttonshapewhitebg.xml" value="0.27870370370370373" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/gradient_1.xml" value="0.27870370370370373" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/home.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/profile.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/setting.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/add.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/assignment_btn.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/Quizlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_main.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_start.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/assignmentlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_activity.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_favourite.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_home.xml" value="0.2361111111111111" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_profile.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/homefragment.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/questionbuilder.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/questionmodel.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/quizlist.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/recyclerview.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/scores.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/setting.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/home.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/scores.xml" value="0.27291666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
