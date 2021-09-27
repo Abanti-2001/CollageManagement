@@ -40,7 +40,7 @@
         android:background="@color/white"
         android:elevation="16dp"
         android:gravity="center"
-        app:cnb_menuResource="@menu/home"
+        app:cnb_menuResource="@menu/teacherhome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

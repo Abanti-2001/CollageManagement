@@ -19,13 +19,18 @@ import android.net.NetworkInfo
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Handler
+import android.os.PersistableBundle
 import android.util.Log
+import com.example.collagemanagement.models.User
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
 
-    private lateinit var NightView: View
-    private lateinit var MorningView: View
+
     private lateinit var detector: GestureDetectorCompat
     private lateinit var animationl: Animation
     private lateinit var animationr: Animation
@@ -35,7 +40,6 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var Userid: String
-
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -45,65 +49,89 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
         setContentView(R.layout.activity_main)
 
         auth = FirebaseAuth.getInstance()
-        Userid = auth.currentUser?.uid.toString()
-        if (auth.currentUser != null && isOnline(this)) {
 
-            var intent = Intent(this, StartActivity::class.java)
-            startActivity(intent)
-        }
-        gesturelistner = DiaryGestureListerner(this,this)
-        detector = GestureDetectorCompat(this,gesturelistner )
-        NightView = findViewById(R.id.night)
-        MorningView = findViewById(R.id.morning)
-        animationl = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_left)
-        animationr = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_right)
-        animationup = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
-        animationdown = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
+            gesturelistner = DiaryGestureListerner(this, this)
+            detector = GestureDetectorCompat(this, gesturelistner)
+            animationl = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_left)
+            animationr = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_right)
+            animationup = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
+            animationdown = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
 
-        signinbtn.setOnClickListener() {
-            val email = findViewById<EditText>(R.id.email).text.toString()
-            val password = findViewById<EditText>(R.id.password).text.toString()
-            if (password.isNotEmpty() && email.isNotEmpty()) {
-                if (password.length >= 6)
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnSuccessListener {
-                            var intent = Intent(this, StartActivity::class.java)
-                            startActivity(intent)
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "Incorrect details", Toast.LENGTH_SHORT).show()
-                        }
-                else
-                    Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show()
-            } else
-                Toast.makeText(this, "Email/Password fields cannot be empty", Toast.LENGTH_SHORT)
-                    .show()
-        }
-        signupbtn.setOnClickListener() {
-            //Toast.makeText(this,"Email"+email+"Pass"+password,Toast.LENGTH_SHORT).show()
-            val email = findViewById<EditText>(R.id.email).text.toString()
-            val password = findViewById<EditText>(R.id.password).text.toString()
-            if (password.isNotEmpty() && email.isNotEmpty()) {
-                if (password.length >= 6) {
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                var intent = Intent(this, StartActivity::class.java)
-                                startActivity(intent)
-                            } else
-                                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT)
-                                    .show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "Couldn't create user", Toast.LENGTH_SHORT).show()
-                        }
+            signinbtn.setOnClickListener() {
+                val email = findViewById<EditText>(R.id.email).text.toString()
+                val password = findViewById<EditText>(R.id.password).text.toString()
+                if (password.isNotEmpty() && email.isNotEmpty()) {
+                    if (password.length >= 6)
+                        auth.signInWithEmailAndPassword(email, password)
+                            .addOnSuccessListener {
+                                checkuser()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Incorrect details", Toast.LENGTH_SHORT).show()
+                            }
+                    else
+                        Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show()
                 } else
-                    Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show()
-            } else
-                Toast.makeText(this, "Email/Password fields cannot be empty", Toast.LENGTH_SHORT)
-                    .show()
+                    Toast.makeText(
+                        this,
+                        "Email/Password fields cannot be empty",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+            }
+            signupbtn.setOnClickListener() {
+                //Toast.makeText(this,"Email"+email+"Pass"+password,Toast.LENGTH_SHORT).show()
+                val email = findViewById<EditText>(R.id.email).text.toString()
+                val password = findViewById<EditText>(R.id.password).text.toString()
+                if (password.isNotEmpty() && email.isNotEmpty()) {
+                    if (password.length >= 6) {
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    checkuser()
+                                } else
+                                    Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT)
+                                        .show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Couldn't create user", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                    } else
+                        Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(
+                        this,
+                        "Email/Password fields cannot be empty",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+            }
+        }
+
+    private fun checkuser() {
+        Userid = auth.currentUser?.uid.toString()
+        val userref = FirebaseDatabase.getInstance().getReference("teacher")
+        userref.child("$Userid").get().addOnSuccessListener {
+            var des: String = "default"
+            if (it != null) {
+                des = it.value.toString()
+            }
+            if (des == "yes") {
+                //teacher
+               // Toast.makeText(this,"Teacher $Userid",Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, StartActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+              //  Toast.makeText(this,"Student $Userid",Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, studentactivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
+
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
@@ -121,61 +149,42 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
 
 
    override fun swipeLeft() {
-        if(!MorningView.isVisible)
+        if(!morning.isVisible)
         {  morning.startAnimation(animationr)
-            NightView.visibility = View.INVISIBLE
-            MorningView.visibility = View.VISIBLE
+            night.visibility = View.INVISIBLE
+            morning.visibility = View.VISIBLE
         }
         //Toast.makeText(this,"Swiped left",Toast.LENGTH_SHORT).show()
     }
 
      override fun swipeRight() {
         //becomes night
-        if(!NightView.isVisible)
+        if(!night.isVisible)
         {
             night.startAnimation(animationl)
-            MorningView.visibility = View.INVISIBLE
-            NightView.visibility = View.VISIBLE
+            morning.visibility = View.INVISIBLE
+            night.visibility = View.VISIBLE
         }
         // Toast.makeText(this,"Swiped right",Toast.LENGTH_SHORT).show()
     }
+    /*
     override fun swipeDown() {
         //becomes day
-        if(!MorningView.isVisible){
+        if(!morning.isVisible){
             morning.startAnimation(animationdown)
-            NightView.visibility = View.INVISIBLE
-            MorningView.visibility = View.VISIBLE
+            night.visibility = View.INVISIBLE
+            morning.visibility = View.VISIBLE
         }
     }
     override fun swipeUp() {
         //become night
-        if(!NightView.isVisible){
+        if(!night.isVisible){
             night.startAnimation(animationup)
-            MorningView.visibility = View.INVISIBLE
-            NightView.visibility = View.VISIBLE
+            morning.visibility = View.INVISIBLE
+            night.visibility = View.VISIBLE
         }
-    }
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
-            }
-        }
-        return false
-    }
+    }*/
+
 
 }
 

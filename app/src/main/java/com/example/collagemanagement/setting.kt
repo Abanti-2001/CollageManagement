@@ -98,7 +98,7 @@ class Setting : AppCompatActivity() {
             if(username.isNotEmpty() && collageid.isNotEmpty() && email.isNotEmpty() && organisation.isNotEmpty()) {
                 writeNewUser(username, collageid, email, organisation,profilepic)
 
-                val intent = Intent(this,StartActivity::class.java)
+                val intent = Intent(this,MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 intent.putExtra("data","3")
                 startActivity(intent)

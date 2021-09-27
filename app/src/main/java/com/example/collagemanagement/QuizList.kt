@@ -1,5 +1,6 @@
 package com.example.collagemanagement
 
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -67,7 +68,11 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
                     }
                      Recycleradpater=QuizListAdapter(quizlist,this@QuizList)
                     QuizView.adapter = Recycleradpater
+                }else{
+                    Recycleradpater=QuizListAdapter(quizlist,this@QuizList)
+                    QuizView.adapter = Recycleradpater
                 }
+
             }
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -101,6 +106,7 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         //Toast.makeText(this,"Position : $position", Toast.LENGTH_SHORT).show()
         //reference to the cliked item:
         val reffernce_item  = quizlist[position]  //reference to the item
+
         val builder =AlertDialog.Builder(this)
         val inflater  = layoutInflater
         val dialogboxlayout=inflater.inflate(R.layout.questionbuilder,null)
@@ -142,7 +148,8 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         val op2=dialogboxlayout.findViewById<EditText>(R.id.op2)
         val op3=dialogboxlayout.findViewById<EditText>(R.id.op3)
         val op4=dialogboxlayout.findViewById<EditText>(R.id.op4)
-    setTitle("Enter the question")
+        setTitle("Enter the question")
+        setIcon(R.drawable.cat1)
     setPositiveButton("Done"){dialog,which->
 
       //  Toast.makeText(applicationContext,"${q?.text.toString()}",Toast.LENGTH_SHORT).show()

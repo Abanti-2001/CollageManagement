@@ -18,32 +18,44 @@ import android.content.DialogInterface
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.core.view.GestureDetectorCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class StartActivity :AppCompatActivity()  {
     private var STORAGE_PERMISSION_CODE : Int = 1
     private lateinit var gesturelistner : DiaryGestureListerner
     private lateinit var detector: GestureDetectorCompat
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var Userid: String
+    private var database: DatabaseReference = Firebase.database.reference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        Userid = auth.currentUser?.uid.toString()
+        val email = auth.currentUser?.email.toString()
+        database.child("users").child("$Userid").child("email").setValue(email)
         setContentView(R.layout.activity_start)
-        supportActionBar?.setTitle("Welcome")
+        supportActionBar?.setTitle("Teacher")
 
         //viewpager is the page adapter that contains all the fragments as well
+        //teacher:
+
         menu_bottom.setOnItemSelectedListener { id ->
             when(id){
                 R.id.home -> viewpager.currentItem = 0
-                R.id.activity -> viewpager.currentItem = 1
-                R.id.favorites -> viewpager.currentItem = 2
-                R.id.profile -> viewpager.currentItem = 3
+                R.id.profile -> viewpager.currentItem = 1
             }
         }
 
-        viewpager.adapter = PageAdapter(supportFragmentManager).apply {
+        viewpager.adapter = PageAdapter(supportFragmentManager, "Teacher").apply {
             list = ArrayList<String>().apply {
                 add("Home")
-                add("Activity")
-                add("Favourite")
                 add("Profile")
             }
         }

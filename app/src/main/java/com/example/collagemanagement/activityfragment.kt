@@ -28,11 +28,6 @@ class activityfragment : Fragment() {
         database = Firebase.database.reference
         auth= FirebaseAuth.getInstance()
         arraylist=addlist()
-       /* database.child("dummyData").setValue(arraylist).addOnSuccessListener {
-            Toast.makeText(activity,"Success",Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(activity,"Failure",Toast.LENGTH_SHORT).show()
-        }*/
     }
 
     private fun addlist() : ArrayList<scorelist>{
@@ -58,16 +53,6 @@ class activityfragment : Fragment() {
         return rootview
     }
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment activity.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
         fun newInstance(param1: String, param2: String) =
             activityfragment().apply {
                 arguments = Bundle().apply {

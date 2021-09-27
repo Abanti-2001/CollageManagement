@@ -13,6 +13,7 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/assignment_btn.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/Quizlist.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_main.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_splash_screen.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_start.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/assignmentlist.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_activity.xml" value="0.27291666666666664" />
@@ -26,8 +27,10 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/recyclerview.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/scores.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/setting.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/studentstartactivity.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/home.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/scores.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/teacherhome.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

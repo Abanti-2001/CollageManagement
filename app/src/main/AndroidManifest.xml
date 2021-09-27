@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".MainActivity"
+        <activity android:name=".SplashScreen"
             android:exported="true"
             android:enabled="true"
             android:noHistory="true">
@@ -22,8 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".studentactivity"  />
         <activity android:name=".StartActivity"/>
-        <activity android:name=".Setting" android:parentActivityName=".StartActivity"/>
+        <activity android:name=".Setting"/>
         <activity android:name=".QuizList" android:parentActivityName=".StartActivity"/>
     </application>
 </manifest>

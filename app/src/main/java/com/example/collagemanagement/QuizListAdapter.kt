@@ -45,7 +45,6 @@ class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
     }
 
 
-
     inner class QuizHolder(itemview : View) : RecyclerView.ViewHolder(itemview),
         View.OnClickListener
     {
@@ -67,6 +66,4 @@ class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
         fun onitemclick(position: Int){
         }
     }
-
-
 }

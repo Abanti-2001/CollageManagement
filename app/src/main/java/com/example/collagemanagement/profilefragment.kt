@@ -37,6 +37,7 @@ class profilefragment : Fragment() {
     private lateinit var Userid : String
     private lateinit var username : String
     private lateinit var email : String
+    private lateinit var pro : String
     private lateinit var collageid : String
     private lateinit var organisation : String
 
@@ -87,6 +88,7 @@ class profilefragment : Fragment() {
                 collageid = it.child("collageID").value.toString()
                 email = it.child("email").value.toString()
                 organisation = it.child("organisation").value.toString()
+                pro=it.child("profilepic").value.toString()
             }
             usernameA?.setText(username)
 
@@ -95,6 +97,7 @@ class profilefragment : Fragment() {
             emailA?.setText(email)
 
             organisationA?.setText(organisation)
+
 
                 }
         storage.child("ProfilePics/$Userid").downloadUrl.addOnSuccessListener {
