@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlin.math.sign
 
 private const val ARG_PARAM = "param1"
-class profilefragment : Fragment() {
+class profilefragment(private val des : String) : Fragment() {
     private var param1: String? = null
     private lateinit var auth : FirebaseAuth
     private lateinit var database : DatabaseReference
@@ -48,7 +48,7 @@ class profilefragment : Fragment() {
         }
         auth= FirebaseAuth.getInstance()
         Userid=auth.currentUser?.uid.toString()
-        database =FirebaseDatabase.getInstance().getReference().child("users")
+        database =FirebaseDatabase.getInstance().reference.child("users")
         storage=Firebase.storage.reference
 
 
@@ -66,6 +66,7 @@ class profilefragment : Fragment() {
         val profilepicA = rootview.findViewById<ImageView>(R.id.profile_pic)
         editsetting.setOnClickListener {
             val intent = Intent(activity, Setting::class.java)
+            intent.putExtra("des",des)
             startActivity(intent)
         }
         displayprofile(usernameA,collageIdA,emailA,organisationA,profilepicA)

@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.collagemanagement.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_splash_screen.*
@@ -60,12 +58,14 @@ class SplashScreen : AppCompatActivity() {
                 if (des == "yes") {
                     //teacher
                  //   Toast.makeText(this,"Teacher $des", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, StartActivity::class.java)
+                    var intent = Intent(this, teacher_activity::class.java)
+                   // intent.putExtra("des","Teacher")
                     startActivity(intent)
                     finish()
                 } else {
                  //   Toast.makeText(this,"Student $des",Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, studentactivity::class.java)
+                    var intent = Intent(this, student_activity::class.java)
+                   // intent.putExtra("des","Student")
                     startActivity(intent)
                     finish()
                 }

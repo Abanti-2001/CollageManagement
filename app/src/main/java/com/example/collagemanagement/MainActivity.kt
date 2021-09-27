@@ -1,7 +1,6 @@
 package com.example.collagemanagement
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
@@ -15,17 +14,8 @@ import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
-import android.net.NetworkInfo
 
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Handler
-import android.os.PersistableBundle
-import android.util.Log
-import com.example.collagemanagement.models.User
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
@@ -120,12 +110,12 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
             if (des == "yes") {
                 //teacher
                // Toast.makeText(this,"Teacher $Userid",Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, StartActivity::class.java)
+                var intent = Intent(this, teacher_activity::class.java)
                 startActivity(intent)
                 finish()
             } else {
               //  Toast.makeText(this,"Student $Userid",Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, studentactivity::class.java)
+                var intent = Intent(this, student_activity::class.java)
                 startActivity(intent)
                 finish()
             }

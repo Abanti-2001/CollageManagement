@@ -106,7 +106,6 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         //Toast.makeText(this,"Position : $position", Toast.LENGTH_SHORT).show()
         //reference to the cliked item:
         val reffernce_item  = quizlist[position]  //reference to the item
-
         val builder =AlertDialog.Builder(this)
         val inflater  = layoutInflater
         val dialogboxlayout=inflater.inflate(R.layout.questionbuilder,null)
@@ -173,6 +172,10 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         //Toast.makeText(this,"$index",Toast.LENGTH_SHORT).show()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 
 }
 

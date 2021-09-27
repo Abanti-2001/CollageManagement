@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".studentactivity"  />
-        <activity android:name=".StartActivity"/>
+        <activity android:name=".student_activity"  />
+        <activity android:name=".teacher_activity"/>
         <activity android:name=".Setting"/>
-        <activity android:name=".QuizList" android:parentActivityName=".StartActivity"/>
+        <activity android:name=".QuizList"/>
     </application>
 </manifest>

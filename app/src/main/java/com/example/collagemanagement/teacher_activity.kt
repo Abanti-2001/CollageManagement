@@ -1,31 +1,28 @@
 package com.example.collagemanagement
 
-import android.accessibilityservice.GestureDescription
-import android.app.AlertDialog
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fxn.ariana.ArianaBackgroundListener
 import kotlinx.android.synthetic.main.activity_start.*
-import java.util.*
-import java.util.jar.Manifest
+
 import androidx.core.app.ActivityCompat
 
-import android.content.DialogInterface
-import android.view.MotionEvent
-import android.widget.Toast
 import androidx.core.view.GestureDetectorCompat
+import androidx.viewpager.widget.ViewPager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_start.img1
+import kotlinx.android.synthetic.main.activity_start.menu_bottom
+import kotlinx.android.synthetic.main.activity_start.viewpager
+import kotlinx.android.synthetic.main.studentstartactivity.*
 
 
-class StartActivity :AppCompatActivity()  {
+
+class teacher_activity :AppCompatActivity()  {
     private var STORAGE_PERMISSION_CODE : Int = 1
     private lateinit var gesturelistner : DiaryGestureListerner
     private lateinit var detector: GestureDetectorCompat
@@ -45,12 +42,13 @@ class StartActivity :AppCompatActivity()  {
 
         //viewpager is the page adapter that contains all the fragments as well
         //teacher:
-
-        menu_bottom.setOnItemSelectedListener { id ->
-            when(id){
-                R.id.home -> viewpager.currentItem = 0
-                R.id.profile -> viewpager.currentItem = 1
-            }
+        //default
+        if (savedInstanceState == null) {
+            menu_bottom.setItemSelected(R.id.home, true)
+            val homeFragment = homefragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.viewpager, homeFragment)
+                .commit()
         }
 
         viewpager.adapter = PageAdapter(supportFragmentManager, "Teacher").apply {
@@ -60,13 +58,49 @@ class StartActivity :AppCompatActivity()  {
             }
         }
 
-        viewpager.addOnPageChangeListener(
-            ArianaBackgroundListener(
-                getColors(),
-                img1,
-                viewpager
-            )
-        )
+
+        menu_bottom.setOnItemSelectedListener { id ->
+            when(id){
+                R.id.home -> {
+                    viewpager.currentItem = 0
+                }
+                R.id.profile -> {
+                    viewpager.currentItem = 1
+                }
+            }
+        }
+
+
+
+        viewpager.addOnPageChangeListener(ArianaBackgroundListener(
+                getColors(), img1, viewpager))
+        viewpager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {}
+
+            override fun onPageSelected(position: Int) {
+                when(position){
+                    0-> {
+                        //home
+                      //  Toast.makeText(applicationContext, "0", Toast.LENGTH_SHORT).show()
+                        menu_bottom.setItemSelected(R.id.home, true)
+                    }
+                    1->{
+                        //profile
+                      //  Toast.makeText(applicationContext,"1",Toast.LENGTH_SHORT).show()
+                        menu_bottom.setItemSelected(R.id.profile, true)
+                    }
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+
+        })
+
+
         val data=intent.getStringExtra("data")
         if(data!=null)
             intentact(data)
@@ -97,7 +131,7 @@ class StartActivity :AppCompatActivity()  {
                 android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
                         ActivityCompat.requestPermissions(
-                            this@StartActivity, arrayOf(
+                            this@teacher_activity, arrayOf(
                                 android.Manifest.permission.READ_EXTERNAL_STORAGE,
                                 android.Manifest.permission.INTERNET
                             ), STORAGE_PERMISSION_CODE
@@ -116,4 +150,5 @@ class StartActivity :AppCompatActivity()  {
         super.onBackPressed()
         moveTaskToBack(true);
     }
+
 }

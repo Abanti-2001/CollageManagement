@@ -2,10 +2,10 @@ package com.example.collagemanagement
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 import com.google.firebase.auth.FirebaseAuth
 
-class PageAdapter (supportFragmentManageer : FragmentManager , val des : String) : FragmentStatePagerAdapter(supportFragmentManageer)
+class PageAdapter (supportFragmentManager : FragmentManager, private val des : String) : FragmentPagerAdapter(supportFragmentManager)
 {
     private lateinit var user : FirebaseAuth
     var list = ArrayList<String>()
@@ -20,7 +20,7 @@ class PageAdapter (supportFragmentManageer : FragmentManager , val des : String)
                 }
                 1-> {
                     //profile
-                    return  profilefragment()
+                    return  profilefragment(des)
                 }
                 else-> {
                     return homefragment()
@@ -44,7 +44,7 @@ class PageAdapter (supportFragmentManageer : FragmentManager , val des : String)
                 }
                 3 -> {
                     //profile
-                    return profilefragment()
+                    return profilefragment(des)
                 }
                 else -> {
                     return homefragment()
@@ -52,7 +52,6 @@ class PageAdapter (supportFragmentManageer : FragmentManager , val des : String)
             }
         }
     }
-
     override fun getCount(): Int {
         return list.size
     }
