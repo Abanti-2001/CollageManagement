@@ -15,120 +15,94 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.setting.*
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.fragment_profile.*
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class Setting : AppCompatActivity() {
-    private lateinit var database: DatabaseReference
-    private lateinit var auth : FirebaseAuth
-    private lateinit var storage : StorageReference
-    private lateinit var Userid : String
-    private  var username : String = "null"
-    private  var email : String ="null"
-    private  var collageid : String = "null"
-    private  var organisation : String = "null"
-    private  var profilepic : String ="null"
+    private var auth : FirebaseAuth =FirebaseAuth.getInstance()
+    private  val storage : StorageReference =Firebase.storage.reference
+    private  val Userid : String =auth.currentUser?.uid.toString()
     private lateinit var ImageURI : Uri
-
+    private val mDoc : DocumentReference = FirebaseFirestore.getInstance().collection("Users").document("$Userid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setting)
-        supportActionBar?.setTitle("Setting")
-        val submit = findViewById<Button>(R.id.submit)
-
-        database = Firebase.database.reference
-        auth= FirebaseAuth.getInstance()
-        Userid=auth.currentUser?.uid.toString()
-        storage = Firebase.storage.reference
-        //define empty fields
-        val datausername=findViewById<EditText>(R.id.editusername)
-        val datacollageid=findViewById<EditText>(R.id.editcollageid)
-        val dataemail =findViewById<EditText>(R.id.editemail)
-        val dataorganisation =findViewById<EditText>(R.id.editorganisation)
-        val dataprofilepic = findViewById<ImageView>(R.id.editpic)
-
+        supportActionBar?.title = "Setting"
+        //ImageView
         storage.child("ProfilePics/$Userid").downloadUrl.addOnSuccessListener {
             Glide.with(applicationContext)
                 .load(it)
                 .fitCenter()
                 .placeholder(R.drawable.profile)
-                .into(dataprofilepic)
-            profilepic=it.toString()
-        }.addOnFailureListener {  }
-
-        val data =FirebaseDatabase.getInstance().getReference("users")
-        data.child(Userid).get().addOnSuccessListener {
-            if (it != null) {
-
-                username = it.child("username").value.toString()
-                collageid = it.child("collageID").value.toString()
-                email = it.child("email").value.toString()
-                organisation = it.child("organisation").value.toString()
-
-                //Toast.makeText(applicationContext,username,Toast.LENGTH_SHORT).show()
-
-                if (username == "null") datausername?.setText("Username")
-                else datausername?.setText(username)
-
-                if (collageid == "null") datacollageid?.setText("CollageID")
-                else datacollageid?.setText(collageid ?: "CollageID")
-
-                if (email == "null") dataemail?.setText("Email")
-                else dataemail?.setText(email)
-
-                if (organisation == "null") dataorganisation?.setText("Organisation")
-                else dataorganisation?.setText(organisation)
-            }
+                .into(editpic)
+        }.addOnFailureListener {
+            //Fails to retrieve pic
+            editpic.setImageResource(R.drawable.profile)
         }
-
-
+        UserDisplay()
         editpic.setOnClickListener {
             launchGallery()
         }
-
         submit.setOnClickListener(){
-             username=findViewById<EditText>(R.id.editusername).text.toString()
-             collageid=findViewById<EditText>(R.id.editcollageid).text.toString()
-             email = findViewById<EditText>(R.id.editemail).text.toString()
-             organisation = findViewById<EditText>(R.id.editorganisation).text.toString()
-           // Toast.makeText(applicationContext," $profilepic ",Toast.LENGTH_SHORT).show()
-            if(username.isNotEmpty() && collageid.isNotEmpty() && email.isNotEmpty() && organisation.isNotEmpty()) {
-                writeNewUser(username, collageid, email, organisation,profilepic)
-                val data = intent.getStringExtra("des")
-              //  Toast.makeText(applicationContext,"$data",Toast.LENGTH_SHORT).show()
-                if(data=="Teacher") {
-                    val intent = Intent(this, teacher_activity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    intent.putExtra("data", "1")
-                    startActivity(intent)
-                    finish()
-                }else{
-                    val intent = Intent(this, student_activity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    intent.putExtra("data", "3")
-                    startActivity(intent)
-                    finish()
-                }
+            if( !editusername?.text.toString().isNullOrEmpty() &&
+                !editcollageid?.text.toString().isNullOrEmpty() &&
+                !editemail?.text.toString().isNullOrEmpty() &&
+                !editorganisation?.text.toString().isNullOrEmpty()) {
+                    //check username conditions
+                    if(!editusername?.text.toString().contains(" ")) {
+                        writeNewUser(
+                            editusername?.text.toString(), editcollageid?.text.toString(),
+                            editemail?.text.toString(), editorganisation?.text.toString()
+                        )
+                        finish()
+                    }
+                else
+                    Toast.makeText(applicationContext,"Username cannot contain space",Toast.LENGTH_SHORT).show()
+
             }
             else
                 Toast.makeText(applicationContext,"Cannot add empty values",Toast.LENGTH_SHORT).show()
         }
     }
-    private fun writeNewUser(Username: String, CollageID: String, Email: String,Organisation : String , Profilepic : String){
 
-        val user = User(Username,CollageID,Email,Organisation,Profilepic)
-        //Toast.makeText(applicationContext,Userid,Toast.LENGTH_SHORT).show()
-        database.child("users").child(Userid).setValue(user)
-
-        database.child("users").child(Userid).get().addOnSuccessListener {
-          // Toast.makeText(applicationContext," Done ",Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener{
-            Toast.makeText(applicationContext," Failed ",Toast.LENGTH_SHORT).show()
+    private fun UserDisplay() {
+        //Create the profile display
+        mDoc.get().addOnSuccessListener { snapshot ->
+            if(snapshot!=null) {
+                val Data = snapshot.toObject(User::class.java)
+                Log.v("Details: ",snapshot.data.toString())
+                editusername?.setText(Data?.username)
+                editcollageid?.setText(Data?.collageID)
+                editemail?.setText(Data?.email)
+                editorganisation?.setText(Data?.organisation)
+            }
         }
     }
+
+    private fun writeNewUser(Username: String, CollageID: String, Email: String,Organisation : String){
+         mDoc.get().addOnSuccessListener {
+             val role =  it?.getString("role")
+             val User_Details = User(Username,CollageID,Email,Organisation,role)
+             auth.currentUser?.updateEmail(Email)
+             mDoc.set(User_Details).addOnSuccessListener {
+                 Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
+             }.addOnFailureListener {
+                 Toast.makeText(applicationContext,"Failed",Toast.LENGTH_SHORT).show()
+                 Log.v("Failed: ",it.toString())
+             }
+        }
+
+    }
+
     private fun launchGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"

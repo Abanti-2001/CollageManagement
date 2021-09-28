@@ -7,7 +7,7 @@
     android:paddingHorizontal="50dp"
     android:paddingTop="25dp"
     android:paddingBottom="15dp"
-    android:background="@drawable/gradient_1">
+    android:background="@color/favouritebg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/editpic"
@@ -29,7 +29,8 @@
         app:layout_constraintTop_toBottomOf="@id/editpic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/editcollageid"
@@ -43,7 +44,8 @@
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editusername" />
+        app:layout_constraintTop_toBottomOf="@id/editusername"
+        android:inputType="text"/>
     <EditText
         android:id="@+id/editemail"
         android:layout_width="match_parent"
@@ -56,7 +58,8 @@
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editcollageid" />
+        app:layout_constraintTop_toBottomOf="@id/editcollageid"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/editorganisation"
@@ -70,7 +73,8 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editemail" />
+        app:layout_constraintTop_toBottomOf="@id/editemail"
+        android:inputType="text"/>
 
 
     <Button

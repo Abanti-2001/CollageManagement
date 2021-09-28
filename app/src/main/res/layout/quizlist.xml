@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".QuizList"
     android:orientation="vertical"
-    android:background="@drawable/gradient_1"
+    android:background="#E931776F"
     android:paddingHorizontal="15dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quiz List"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -27,25 +27,25 @@
         android:id="@+id/quiz_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/quiz_list"
         android:layout_above="@+id/submit"
+        android:layout_below="@id/quiz_list"
         android:layout_marginTop="5dp"
         android:clipToPadding="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/questionmodel" />
+
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:background="@drawable/assignment_btn"
         android:text="Submit"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/Quizbuttons"

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:layout_gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingHorizontal="50dp"
+    android:paddingTop="25dp"
+    android:paddingBottom="15dp"
+    tools:context=".homefragment_teacher"
+    android:orientation="vertical"
+    >
+
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/QuizView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/calibri"
+        android:text="Quiz List"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/quiz_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/QuizView"
+        android:layout_above="@id/addquizlist"
+        android:layout_marginTop="5dp"
+        android:clipToPadding="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/home_quiz_model" />
+
+    <Button
+        android:id="@+id/addquizlist"
+        android:text="Make new Quiz"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:clipToPadding="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/assignment_btn" />
+
+</RelativeLayout>
+

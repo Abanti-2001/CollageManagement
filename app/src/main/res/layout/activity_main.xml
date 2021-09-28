@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="16dp"
-                android:drawableEnd="@drawable/ic_lock_white_24dp"
+                android:drawableEnd="@drawable/ic_baseline_lock_24"
                 android:fontFamily="@font/calibri"
                 android:hint="Password"
                 android:inputType="textPassword"

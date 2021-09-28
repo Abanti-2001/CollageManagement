@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.scores.view.*
 import kotlinx.android.synthetic.main.scores.view.Quiz_Logo
 
 class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
-                      private val Listner: onItemClickedListner)
+                      private val Listner: QuizonItemClickedListner)
     : RecyclerView.Adapter<QuizListAdapter.QuizHolder>()
 {
 
@@ -42,6 +42,7 @@ class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
         holder.Question2.text = current_item.Option2
         holder.Question3.text = current_item.Option3
         holder.Question4.text = current_item.Option4
+        holder.Answer.text = current_item.Correct
     }
 
 
@@ -53,8 +54,11 @@ class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
         val Question2 : TextView = itemview.question2
         val Question3 : TextView = itemview.question3
         val Question4 : TextView = itemview.question4
-        init {
-            itemview.setOnClickListener(this)
+        val Answer : TextView = itemview.answer
+        init{
+            itemview.setOnClickListener {
+                Listner.onitemclick(absoluteAdapterPosition)
+            }
         }
         override fun onClick(v: View?) {
             val pos =absoluteAdapterPosition
@@ -62,7 +66,7 @@ class QuizListAdapter(private val listitem: MutableList<QuizQuestion>,
                 Listner.onitemclick(pos)
         }
     }
-    interface onItemClickedListner{
+    interface QuizonItemClickedListner{
         fun onitemclick(position: Int){
         }
     }

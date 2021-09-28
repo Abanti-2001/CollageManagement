@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fxn.ariana.ArianaBackgroundListener
-import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.teacher_activity_start.*
 
 import androidx.core.app.ActivityCompat
 
@@ -15,11 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_start.img1
-import kotlinx.android.synthetic.main.activity_start.menu_bottom
-import kotlinx.android.synthetic.main.activity_start.viewpager
-import kotlinx.android.synthetic.main.studentstartactivity.*
-
 
 
 class teacher_activity :AppCompatActivity()  {
@@ -37,15 +32,15 @@ class teacher_activity :AppCompatActivity()  {
         Userid = auth.currentUser?.uid.toString()
         val email = auth.currentUser?.email.toString()
         database.child("users").child("$Userid").child("email").setValue(email)
-        setContentView(R.layout.activity_start)
-        supportActionBar?.setTitle("Teacher")
+        setContentView(R.layout.teacher_activity_start)
+        supportActionBar?.title = "Teacher"
 
         //viewpager is the page adapter that contains all the fragments as well
         //teacher:
         //default
         if (savedInstanceState == null) {
             menu_bottom.setItemSelected(R.id.home, true)
-            val homeFragment = homefragment()
+            val homeFragment = homefragment_teacher()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.viewpager, homeFragment)
                 .commit()
@@ -57,8 +52,6 @@ class teacher_activity :AppCompatActivity()  {
                 add("Profile")
             }
         }
-
-
         menu_bottom.setOnItemSelectedListener { id ->
             when(id){
                 R.id.home -> {
@@ -100,11 +93,6 @@ class teacher_activity :AppCompatActivity()  {
 
         })
 
-
-        val data=intent.getStringExtra("data")
-        if(data!=null)
-            intentact(data)
-
         if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED )
         {
             requeststoragepermission()
@@ -119,10 +107,6 @@ class teacher_activity :AppCompatActivity()  {
             ContextCompat.getColor(this, R.color.favouritebg),
             ContextCompat.getColor(this, R.color.homebg)
         )
-    }
-    private fun intentact(data:String){
-        //Toast.makeText(applicationContext,data,Toast.LENGTH_SHORT).show()
-        viewpager.setCurrentItem(data.toInt())
     }
 
     private fun requeststoragepermission() {

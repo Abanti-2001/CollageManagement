@@ -2,18 +2,17 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_margin="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_1"
+        android:background="@drawable/border_items_list"
         android:padding="10dp"
         >
 
 
         <!--android:src="@drawable/cat1" -->
-
         <TextView
             android:id="@+id/Question"
             android:layout_width="match_parent"
@@ -84,6 +83,21 @@
             android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question3"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:hint="Correct Answer"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/activity"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>

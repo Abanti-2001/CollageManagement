@@ -8,8 +8,7 @@
     android:paddingTop="25dp"
     android:paddingBottom="15dp"
     tools:context=".profilefragment"
-    android:orientation="vertical"
-    android:background="@drawable/gradient_1">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
             <ScrollView
@@ -62,7 +61,6 @@
                             android:ellipsize="end"
                             android:gravity="center_horizontal"
                             android:maxLines="1"
-                            android:paddingHorizontal="50dp"
                             android:paddingVertical="15dp"
                             android:scrollHorizontally="true"
                             android:hint="Username"
@@ -78,7 +76,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:paddingHorizontal="50dp"
                             android:paddingVertical="15dp"
                             android:hint="Collage ID"
                             android:textColor="#000000"
@@ -94,7 +91,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:paddingHorizontal="50dp"
                             android:paddingVertical="15dp"
                             android:hint="Email"
                             android:textColor="#000000"
@@ -110,7 +106,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="70dp"
                             android:gravity="center"
-                            android:paddingHorizontal="50dp"
                             android:paddingVertical="15dp"
                             android:hint="Organisation"
                             android:textColor="#000000"

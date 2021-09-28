@@ -1,31 +1,28 @@
 package com.example.collagemanagement
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.content.pm.PackageManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.fxn.ariana.ArianaBackgroundListener
-import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.student_activity_start.*
 import java.util.ArrayList
-import java.util.*
 
 class student_activity : AppCompatActivity() {
     private var STORAGE_PERMISSION_CODE : Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.studentstartactivity)
-        supportActionBar?.setTitle("Student")
+        setContentView(R.layout.student_activity_start)
+        supportActionBar?.title = "Student"
 
         //student
         //default
         if (savedInstanceState == null) {
             menu_bottom.setItemSelected(R.id.home, true)
-            val homeFragment = homefragment()
+            val homeFragment = homefragment_teacher()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.viewpager, homeFragment)
                 .commit()
@@ -34,9 +31,8 @@ class student_activity : AppCompatActivity() {
         menu_bottom.setOnItemSelectedListener { id ->
             when(id){
                 R.id.home -> viewpager.currentItem = 0
-                R.id.activity -> viewpager.currentItem = 1
-                R.id.favorites -> viewpager.currentItem = 2
-                R.id.profile -> viewpager.currentItem = 3
+                R.id.favorites -> viewpager.currentItem = 1
+                R.id.profile -> viewpager.currentItem = 2
             }
         }
         viewpager.adapter = PageAdapter(supportFragmentManager,"Student").apply {
@@ -71,16 +67,11 @@ class student_activity : AppCompatActivity() {
                         menu_bottom.setItemSelected(R.id.home, true)
                     }
                     1->{
-                        //activity
-                     //   Toast.makeText(applicationContext,"1", Toast.LENGTH_SHORT).show()
-                        menu_bottom.setItemSelected(R.id.activity, true)
-                    }
-                    2->{
                         //favorites
                      //   Toast.makeText(applicationContext,"1", Toast.LENGTH_SHORT).show()
                         menu_bottom.setItemSelected(R.id.favorites, true)
                     }
-                    3->{
+                    2->{
                         //profile
                      //   Toast.makeText(applicationContext,"1", Toast.LENGTH_SHORT).show()
                         menu_bottom.setItemSelected(R.id.profile, true)
@@ -92,9 +83,6 @@ class student_activity : AppCompatActivity() {
 
         })
 
-         val data=intent.getStringExtra("data")
-        if(data!=null)
-            intentact(data)
 
         if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED )
         {
@@ -105,14 +93,9 @@ class student_activity : AppCompatActivity() {
     private fun getColors() : IntArray{
         return intArrayOf(
             ContextCompat.getColor(this, R.color.homebg),
-            ContextCompat.getColor(this, R.color.activitybg),
             ContextCompat.getColor(this, R.color.favouritebg),
             ContextCompat.getColor(this, R.color.homebg)
         )
-    }
-    private fun intentact(data:String){
-        //Toast.makeText(applicationContext,data,Toast.LENGTH_SHORT).show()
-        viewpager.setCurrentItem(data.toInt())
     }
 
     private fun requeststoragepermission() {

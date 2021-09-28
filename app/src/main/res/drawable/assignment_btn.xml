@@ -6,12 +6,11 @@
             <stroke android:color="#96ffffff"
                          android:width="5dp"
                 />
-            <gradient
-                android:startColor = "#5E80BA"
-                android:centerColor = "#76C3BA"
-                android:endColor ="#4AA5CD"
-                android:angle = "90"
-                android:type = "linear" />
+            <corners
+                android:radius="15dp"/>
+            <solid
+                android:color="#5E80BA"
+                />
         </shape>
     </item>
 </selector>

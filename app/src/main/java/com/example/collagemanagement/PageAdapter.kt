@@ -16,14 +16,14 @@ class PageAdapter (supportFragmentManager : FragmentManager, private val des : S
                 0->{
                     //home
 
-                    return homefragment()
+                    return homefragment_teacher()
                 }
                 1-> {
                     //profile
-                    return  profilefragment(des)
+                    return  profilefragment()
                 }
                 else-> {
-                    return homefragment()
+                    return homefragment_teacher()
                 }
             }
         }
@@ -32,22 +32,19 @@ class PageAdapter (supportFragmentManager : FragmentManager, private val des : S
                 0 -> {
                     //home
 
-                    return homefragment()
+                    return homefragment_student()
                 }
+
                 1 -> {
-                    //activity
-                    return activityfragment()
-                }
-                2 -> {
                     //faourite
                     return favouritefragment()
                 }
-                3 -> {
+                2 -> {
                     //profile
-                    return profilefragment(des)
+                    return profilefragment()
                 }
                 else -> {
-                    return homefragment()
+                    return homefragment_teacher()
                 }
             }
         }

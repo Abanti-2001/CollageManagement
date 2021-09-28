@@ -7,10 +7,17 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/buttonshapewhitebg.xml" value="0.27870370370370373" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/gradient_1.xml" value="0.27870370370370373" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/home.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/ic_email_white_24dp.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/ic_lock_white_24dp.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/pencil.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/profile.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable-v24/setting.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/add.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/assignment_btn.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/border_items_list.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/drawable/placeholder_splashscreen.xml" value="0.2890625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/Quizlist.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_main.xml" value="0.192481884057971" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/activity_splash_screen.xml" value="0.27291666666666664" />
@@ -19,15 +26,23 @@
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_activity.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_favourite.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_home.xml" value="0.2361111111111111" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_home_student.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_home_teacher.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_homestudent.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/fragment_profile.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/home_quiz_model.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/homefragment.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/questionbuilder.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/questionmodel.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/quizcreate.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/quizlist.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/recyclerview.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/savequiz.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/scores.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/setting.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/student_activity_start.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/studentstartactivity.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/layout/teacher_activity_start.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/home.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/scores.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/CollageManagement/app/src/main/res/menu/teacherhome.xml" value="0.27291666666666664" />

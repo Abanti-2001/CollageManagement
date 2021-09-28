@@ -17,67 +17,58 @@ import kotlinx.android.synthetic.main.quizlist.*
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
-class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , DiaryGestureListerner.Gesture{
-    private var database: DatabaseReference = Firebase.database.reference
+class QuizList : AppCompatActivity() , QuizListAdapter.QuizonItemClickedListner , DiaryGestureListerner.Gesture{
     private  var auth : FirebaseAuth = FirebaseAuth.getInstance()
     private  var UserID : String =auth.currentUser?.uid.toString()
-    private lateinit var listref : DatabaseReference
+    private val documentReference : FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var quizlist : MutableList<QuizQuestion>
     private lateinit var Recycleradpater :  QuizListAdapter
     private lateinit var QuizView : RecyclerView
-    private lateinit var ImageURI : Uri
     private lateinit var newitem : QuizQuestion
-
+    private lateinit var Title : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quizlist)
-        supportActionBar?.setTitle("Quizes")
-
+        supportActionBar?.hide()
         quizlist= mutableListOf<QuizQuestion>()
         QuizView=findViewById(R.id.quiz_item)
         QuizView.setHasFixedSize(false)
+        Title=intent.getStringExtra("Title")
         displaylist()
         val itemTouchHelper = ItemTouchHelper(SimpleCallObject)
         itemTouchHelper.attachToRecyclerView(QuizView)
-            ImageURI= Uri.EMPTY
             submit.setOnClickListener {
-                if(quizlist.size!=0)
-                { database.child("Lists").child("$UserID").setValue(quizlist).addOnSuccessListener {
-                    Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener { Toast.makeText(applicationContext,"Failed",Toast.LENGTH_SHORT).show() }
+                if(quizlist.size==0)
+                {
+                    Toast.makeText(applicationContext,"Cannot upload empty list",Toast.LENGTH_SHORT).show()
                 }else
-                    Toast.makeText(applicationContext,"Cannot Upload Empty List",Toast.LENGTH_SHORT).show()
+                finish()
             }
-
-            //Toast.makeText(applicationContext,"${datalist[0].Question}",Toast.LENGTH_SHORT).show()
-
         additem.setOnClickListener { InsertItem(quizlist.size) }
     }
     private fun displaylist(){
-        listref = FirebaseDatabase.getInstance().getReference("Lists/$UserID")
-        listref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
+        documentReference.collection("Users/$UserID/List/$Title/$Title").get().addOnSuccessListener { snapshot ->
                 quizlist.clear()
-                if(snapshot.exists()){
-                    for (QuizSnapshot in snapshot.children){
-                            val quiz = QuizSnapshot.getValue(QuizQuestion::class.java)
-                            quizlist.add(quiz!!)
+                var i : Int = 0
+                if(snapshot!=null){
+                    for (data in snapshot){
+                        val data = data.toObject(QuizQuestion::class.java)
+                        quizlist.add(i,data)
+                        i++
                     }
-                     Recycleradpater=QuizListAdapter(quizlist,this@QuizList)
+                    Recycleradpater=QuizListAdapter(quizlist,this@QuizList)
                     QuizView.adapter = Recycleradpater
-                }else{
+                }else
+                {
                     Recycleradpater=QuizListAdapter(quizlist,this@QuizList)
                     QuizView.adapter = Recycleradpater
                 }
-
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
+        }
     }
 
     private var SimpleCallObject = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),ItemTouchHelper.LEFT .or(ItemTouchHelper.RIGHT)){
@@ -103,7 +94,7 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
 
     override fun onitemclick(position: Int) {
         super.onitemclick(position)
-        //Toast.makeText(this,"Position : $position", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Position : $position", Toast.LENGTH_SHORT).show()
         //reference to the cliked item:
         val reffernce_item  = quizlist[position]  //reference to the item
         val builder =AlertDialog.Builder(this)
@@ -115,19 +106,38 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
             val op2=dialogboxlayout.findViewById<EditText>(R.id.op2)
             val op3=dialogboxlayout.findViewById<EditText>(R.id.op3)
             val op4=dialogboxlayout.findViewById<EditText>(R.id.op4)
-
+            val ans=dialogboxlayout.findViewById<EditText>(R.id.ans)
             q?.setText(reffernce_item?.Question)
             op1.setText(reffernce_item?.Option1)
             op2.setText(reffernce_item?.Option2)
             op3.setText(reffernce_item?.Option3)
             op4.setText(reffernce_item?.Option4)
-
+            ans.setText(reffernce_item?.Correct)
             setPositiveButton("Done"){dialog,which->
                 ///changing the content
-                newitem = QuizQuestion(q?.text.toString(),op1?.text.toString(),op2?.text.toString(),
-                    op3?.text.toString(),op4?.text.toString())
-                quizlist[position] = newitem
-                Recycleradpater.notifyItemChanged(position)
+                val ques = q?.text.toString()
+                var identical : Boolean =false
+                if(ques.isNullOrEmpty()) {
+                    for(i in 0 until quizlist.size){
+                        if(quizlist[i].Question.equals("$ques",true)) {
+                            identical = true
+                            break
+                        }
+                    }
+                if(!identical) {
+                    newitem = QuizQuestion(
+                        q?.text.toString(), op1?.text.toString(), op2?.text.toString(),
+                        op3?.text.toString(), op4?.text.toString(), ans?.text.toString()
+                    )
+                    documentReference.collection("Users/$UserID/List/$Title/$Title")
+                        .document("$ques").set(newitem).addOnSuccessListener {
+                            Toast.makeText(applicationContext, "Made Text", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    quizlist[position] = newitem
+                    Recycleradpater.notifyItemChanged(position)
+                }else Toast.makeText(applicationContext,"Cannot have identical questions!",Toast.LENGTH_SHORT).show()
+                }else Toast.makeText(applicationContext,"Question cannot be empty",Toast.LENGTH_SHORT).show()
             }
             setNegativeButton("Cancel"){dialog,which->
                 dialog.dismiss()
@@ -147,16 +157,34 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         val op2=dialogboxlayout.findViewById<EditText>(R.id.op2)
         val op3=dialogboxlayout.findViewById<EditText>(R.id.op3)
         val op4=dialogboxlayout.findViewById<EditText>(R.id.op4)
+        val ans=dialogboxlayout.findViewById<EditText>(R.id.ans)
         setTitle("Enter the question")
-        setIcon(R.drawable.cat1)
+        setIcon(R.drawable.profile)
     setPositiveButton("Done"){dialog,which->
+        val ques = q?.text.toString()
+        var identical : Boolean =false
+            if(!ques.isNullOrEmpty()) {
+                for(i in 0 until quizlist.size){
+                    if(quizlist[i].Question.equals("$ques",true)) {
+                        identical = true
+                        break
+                    }
+                }
+                if(!identical) {
+                    newitem = QuizQuestion(
+                        q?.text.toString(), op1?.text.toString(), op2?.text.toString(),
+                        op3?.text.toString(), op4?.text.toString(), ans?.text.toString()
+                    )
+                    documentReference.collection("Users/$UserID/List/$Title/$Title")
+                        .document("$ques").set(newitem).addOnSuccessListener {
+                            Toast.makeText(applicationContext, "Made Text", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    quizlist.add(index, newitem)
+                    Recycleradpater.notifyItemInserted(index)
+                }else Toast.makeText(applicationContext,"Cannot have identical questions!",Toast.LENGTH_SHORT).show()
 
-      //  Toast.makeText(applicationContext,"${q?.text.toString()}",Toast.LENGTH_SHORT).show()
-            newitem = QuizQuestion(q?.text.toString(),op1?.text.toString(),op2?.text.toString(),
-                op3?.text.toString(),op4?.text.toString())
-            quizlist.add(index, newitem)
-            Recycleradpater.notifyItemInserted(index)
-          //  Toast.makeText(applicationContext,"Made Text",Toast.LENGTH_SHORT).show()
+            }else Toast.makeText(applicationContext,"Question cannot be empty",Toast.LENGTH_SHORT).show()
     }
     setNegativeButton("Cancel"){dialog,which->
         dialog.dismiss()
@@ -167,9 +195,15 @@ class QuizList : AppCompatActivity() , QuizListAdapter.onItemClickedListner , Di
         }
 
     fun RemoveItem(pos: Int) {
+
+        documentReference.collection("Users/$UserID/List/$Title/$Title")
+            .document("${quizlist[pos].Question.toString()}").delete().addOnSuccessListener {
+                Toast.makeText(this,"Deleted!",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this,"Couldn't delete!",Toast.LENGTH_SHORT).show()
+            }
         quizlist.removeAt(pos)
         Recycleradpater.notifyItemRemoved(pos)
-        //Toast.makeText(this,"$index",Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {

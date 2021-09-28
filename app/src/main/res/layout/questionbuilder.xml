@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_1"
+        android:background="@drawable/border_items_list"
         android:padding="15dp">
 
 
@@ -87,5 +87,19 @@
             android:inputType="text"
             android:maxLines="1"
             />
+
+        <EditText
+            android:id="@+id/ans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/op3"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:hint="Answer"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/activity"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

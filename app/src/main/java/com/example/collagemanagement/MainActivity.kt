@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 import com.google.firebase.database.*
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
@@ -24,28 +26,17 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
     private lateinit var detector: GestureDetectorCompat
     private lateinit var animationl: Animation
     private lateinit var animationr: Animation
-    private lateinit var animationup: Animation
-    private lateinit var animationdown: Animation
     private lateinit var gesturelistner : DiaryGestureListerner
-
-    private lateinit var auth: FirebaseAuth
+    private val auth: FirebaseAuth =FirebaseAuth.getInstance()
     private lateinit var Userid: String
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-    }
+    private lateinit var mDoc : DocumentReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        auth = FirebaseAuth.getInstance()
-
             gesturelistner = DiaryGestureListerner(this, this)
             detector = GestureDetectorCompat(this, gesturelistner)
             animationl = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_left)
             animationr = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_right)
-            animationup = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_up)
-            animationdown = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
 
             signinbtn.setOnClickListener() {
                 val email = findViewById<EditText>(R.id.email).text.toString()
@@ -70,6 +61,9 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
                         .show()
             }
             signupbtn.setOnClickListener() {
+                //by default account is a student
+
+
                 //Toast.makeText(this,"Email"+email+"Pass"+password,Toast.LENGTH_SHORT).show()
                 val email = findViewById<EditText>(R.id.email).text.toString()
                 val password = findViewById<EditText>(R.id.password).text.toString()
@@ -100,25 +94,23 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
         }
 
     private fun checkuser() {
-        Userid = auth.currentUser?.uid.toString()
-        val userref = FirebaseDatabase.getInstance().getReference("teacher")
-        userref.child("$Userid").get().addOnSuccessListener {
-            var des: String = "default"
-            if (it != null) {
-                des = it.value.toString()
+        Userid= auth.currentUser?.uid.toString()
+        mDoc = FirebaseFirestore.getInstance().collection("Users").document("$Userid")
+        mDoc.get().addOnSuccessListener {
+            if(it!=null){
+                val Designation =it.getString("role")
+                Toast.makeText(applicationContext,"$Designation",Toast.LENGTH_SHORT).show()
+                if (Designation.equals("Teacher",true)) {
+                    //goto teacher's layout
+                    val intent=Intent(this,teacher_activity::class.java)
+                    startActivity(intent)
+                }else{
+                    //by default it will goto student
+                    val intent=Intent(this,student_activity::class.java)
+                    startActivity(intent)
+                }
             }
-            if (des == "yes") {
-                //teacher
-               // Toast.makeText(this,"Teacher $Userid",Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, teacher_activity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-              //  Toast.makeText(this,"Student $Userid",Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, student_activity::class.java)
-                startActivity(intent)
-                finish()
-            }
+
         }
     }
 
@@ -140,7 +132,8 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
 
    override fun swipeLeft() {
         if(!morning.isVisible)
-        {  morning.startAnimation(animationr)
+        {   textView.text="Morning"
+            morning.startAnimation(animationr)
             night.visibility = View.INVISIBLE
             morning.visibility = View.VISIBLE
         }
@@ -150,7 +143,7 @@ class MainActivity : AppCompatActivity() , DiaryGestureListerner.Gesture  {
      override fun swipeRight() {
         //becomes night
         if(!night.isVisible)
-        {
+        {   textView.text="Night"
             night.startAnimation(animationl)
             morning.visibility = View.INVISIBLE
             night.visibility = View.VISIBLE

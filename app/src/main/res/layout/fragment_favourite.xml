@@ -7,7 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".favouritefragment"
     android:orientation="vertical"
-    android:background="@drawable/gradient_1"
     android:padding="10dp">
 <RelativeLayout
     android:layout_width="match_parent"

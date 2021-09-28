@@ -7,17 +7,20 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 @Suppress("DEPRECATION")
 class SplashScreen : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var Userid : String
-
+    private lateinit var mDoc : DocumentReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -36,44 +39,37 @@ class SplashScreen : AppCompatActivity() {
         // to send a message with a delayed time.
        // val delay = checkUser()
             Handler().postDelayed({
-                if(!checkUser()) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+                checkUser()
             }, 1000)
 
     }
 
-    private fun checkUser() : Boolean{
+    private fun checkUser(){
         auth = FirebaseAuth.getInstance()
         Userid = auth.currentUser?.uid.toString()
-        val userref = FirebaseDatabase.getInstance().getReference("teacher")
-        if (auth.currentUser != null && isOnline(this)) {
-            userref.child("$Userid").get().addOnSuccessListener {
-                var des: String = ""
+        if(auth.currentUser != null && isOnline(this)) {
+            mDoc = FirebaseFirestore.getInstance().collection("Users").document("$Userid")
+            mDoc.get().addOnSuccessListener {
                 if (it != null) {
-                    des = it.value.toString()
+                    val Designation = it.getString("role")
+                    Toast.makeText(applicationContext,"$Designation",Toast.LENGTH_SHORT).show()
+                    if (Designation.equals("Teacher",true)) {
+                        //goto teacher's layout
+                        val intent=Intent(this,teacher_activity::class.java)
+                        startActivity(intent)
+                    }else{
+                        //by default it will goto student
+                        val intent=Intent(this,student_activity::class.java)
+                        startActivity(intent)
+                    }
                 }
-                if (des == "yes") {
-                    //teacher
-                 //   Toast.makeText(this,"Teacher $des", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, teacher_activity::class.java)
-                   // intent.putExtra("des","Teacher")
-                    startActivity(intent)
-                    finish()
-                } else {
-                 //   Toast.makeText(this,"Student $des",Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this, student_activity::class.java)
-                   // intent.putExtra("des","Student")
-                    startActivity(intent)
-                    finish()
-                }
-            }
-            return true
-        }else
-            return false
-        return false
+            }.addOnFailureListener {}
+        }else{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
