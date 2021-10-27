@@ -1,5 +1,5 @@
 # CollageManagement
-## ** Collage Project **
+## **Collage Project**
 A quiz app that manages both student and teacher side. 🧑‍🎓 👨‍🏫 👩‍🏫
 
 Student can login with their credentials and start attending the quiz that was created by their teacher of choice,
